@@ -12,10 +12,10 @@ server.route({
     method:'POST',
     path:'/contact',
     handler:function(request,h) {
-        const fromEmail = new helper.Email(request.payload.from);
+        const fromEmail = new helper.Email(request.payload.email);
         const toEmail = new helper.Email('renan.bonette@gmail.com');
         const subject = 'Contato de seu Website';
-        const content = new helper.Content('text/plain', request.payload.message);
+        const content = new helper.Content('text/plain', '\n Nome: '+request.payload.name+'\n Telefone: '+request.payload.phone+'\n Mensagem: '+request.payload.message);
         const mail = new helper.Mail(fromEmail, subject, toEmail, content);
         const req = sg.emptyRequest({
             method: 'POST',
@@ -24,12 +24,13 @@ server.route({
         });
            
         sg.API(req, function (error, response) {
-        if (error) {
-            console.log('Error response received');
-        }
-        console.log(response.statusCode);
-        console.log(response.body);
-        console.log(response.headers);
+            if (error) {
+                console.log('============ERRO NO ENVIO DA MENSAGEM============');
+            }else{
+                console.log('============SUCESSO NO ENVIO DA MENSAGEM============');
+            }
+            console.log('\n Email: '+request.payload.email+'\n Nome: '+request.payload.name+'\n Telefone: '+request.payload.phone+'\n Mensagem: '+request.payload.message);
+            console.log('========================================================');
         });
         return true;
     }
