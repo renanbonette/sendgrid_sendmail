@@ -36,6 +36,14 @@ server.route({
     }
 });
 
+server.route({
+    method:'GET',
+    path:'/hello',
+    handler:function(request,h) {
+        return'hello world';
+    }
+});
+
 async function start() {
     try {
         await server.start();
