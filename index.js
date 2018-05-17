@@ -15,7 +15,7 @@ server.route({
     handler:function(request,h) {
         const fromEmail = new helper.Email(request.payload.from);
         const toEmail = new helper.Email('renan.bonette@gmail.com');
-        const subject = 'Contato de seu Website.';
+        const subject = 'Contato de seu Website';
         const content = new helper.Content('text/plain', request.payload.message);
         const mail = new helper.Mail(fromEmail, subject, toEmail, content);
         const req = sg.emptyRequest({
