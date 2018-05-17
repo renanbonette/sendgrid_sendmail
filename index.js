@@ -5,7 +5,6 @@ const helper = require('sendgrid').mail;
 const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 const server=Hapi.server({
-    host:'localhost',
     port: process.env.PORT || 5000
 });
 
