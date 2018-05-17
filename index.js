@@ -6,7 +6,7 @@ const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 const server=Hapi.server({
     host:'localhost',
-    port: process.env.APP_PORT || 8082
+    port: process.env.PORT || 5000
 });
 
 server.route({
