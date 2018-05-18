@@ -9,6 +9,12 @@ const server=Hapi.server({
 });
 
 server.route({
+    config: {
+        cors: {
+            origin: ['*'],
+            additionalHeaders: ['cache-control', 'x-requested-with']
+        }
+    },
     method:'POST',
     path:'/contact',
     handler:function(request,h) {
