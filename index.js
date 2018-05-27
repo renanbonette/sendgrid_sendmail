@@ -2,6 +2,7 @@
 
 const Hapi = require('hapi');
 const helper = require('sendgrid').mail;
+const url = require('url');
 const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 const server=Hapi.server({
@@ -18,6 +19,8 @@ server.route({
     method:'POST',
     path:'/contact',
     handler:function(request,h) {
+        const ref = request.headers;
+        console.log(ref);
         const fromEmail = new helper.Email(request.payload.email);
         const toEmail = new helper.Email('renan.bonette@gmail.com');
         const subject = 'Contato de seu Website';
