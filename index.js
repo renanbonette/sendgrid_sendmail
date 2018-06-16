@@ -1,13 +1,24 @@
 'use strict';
 
 const Hapi = require('hapi');
+const cors = require('cors');
 const helper = require('sendgrid').mail;
-const url = require('url');
 const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 const server=Hapi.server({
     port: process.env.PORT || 5000
 });
+
+var whitelist = ['https://renanbonette.comr.br', 'http://renanbonette.comr.br']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 server.route({
     config: {
@@ -46,6 +57,12 @@ server.route({
 });
 
 server.route({
+    config: {
+        cors: {
+            origin: ['*'],
+            additionalHeaders: ['cache-control', 'x-requested-with']
+        }
+    },
     method:'GET',
     path:'/hello',
     handler:function(request,h) {
